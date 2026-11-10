@@ -1,0 +1,73 @@
+@import '@fontsource-variable/manrope';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/fraunces/wght-italic.css';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces Variable', ui-serif, Georgia, serif;
+
+  --color-paper: #f7f5f0;
+  --color-surface: #ffffff;
+  --color-ink: #1d2130;
+  --color-muted: #5c6272;
+  --color-faint: #8b90a0;
+  --color-line: #e7e3da;
+  --color-accent: #5457cd;
+  --color-accent-soft: #eeeefb;
+
+  --animate-rise: rise 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.print-only { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Tlač / export do PDF ---------- */
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; font-size: 11pt; }
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  .collapsible { display: block !important; }
+  .card { box-shadow: none !important; border-color: #d9d5cc !important; }
+  .avoid-break { break-inside: avoid; }
+  .page-break { break-before: page; }
+  * { animation: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
